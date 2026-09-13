@@ -10,6 +10,15 @@
   <link rel="stylesheet" href="style.html">
     </head>
     <style>
+        #bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1; /* Sits over the body background, but under text content */
+        }
         body {
         margin: 30px;
             background-color: antiquewhite;
@@ -141,7 +150,20 @@
 <div class="photo-text">
     <img src="Screenshot 2026-08-20 084859.png" alt="Photo">
    <h1 style="font-size: 250%;">NADFI</h1>
+<header class="hero">
+        <video autoplay loop muted playsinline id="bg-video">
+            <source src="bk1.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
 
+        <div class="hero-content">
+            <h1>Nature and Animal Development Federation Initiatives</h1>
+            <p>Protecting Nature and Wildlife</p>
+        </div>
+    </header>
+
+    <!-- Rest of your website content -->
+    <main class="main-content">
 </div>
 <style>
 .photo-text {
