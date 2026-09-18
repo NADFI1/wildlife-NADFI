@@ -10,6 +10,23 @@
   <link rel="stylesheet" href="style.html">
     </head>
     <style>
+          @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-text {
+      animation: fadeIn 1.5s ease-out forwards;
+    
+      transition: opacity 0.1s linear;
+      will-change: opacity;
+    }
         * {
             margin: 0;
             padding: 0;
@@ -169,6 +186,10 @@
             .next { right: 15px; }
     </style>
     <body>
+        <div class="content">
+    
+    <!-- Target Text Wrapper -->
+    <div class="fade-text" id="scrollFadeText">
         
         <header class="hero">
         
@@ -280,6 +301,26 @@
     <h1 style="font-family:Saturday Night;"> A Small Step, A Big Difference...</h1>
         <h3> Nature and Animal Development Federation Industries (NADFI)</h3>
     <p>This industry federation highly focusses on the prevention of the wildlife and nature we are loosing every year. Every day, many species of microbes, animals and plants extinct due to the lack of attention given by us. The beginning of humans started from animals, plants and the fresh resources. if we don't pay attention to environment, we will have to pay a high consequence afterwards. Due to development in many countries like india, there is a vast disturbance in ecosystem. This is leading to more possibilities of natural dissasters, and delay in winter and rains. because of that, many people are prone to diseases due to the pollution on the earth. Even the oceans waters are covered with plastics and this implements to the extinction of many aquatic species. the rivers are now poluted by the waste of industries and the one use plastics. This earth provides us with everything we need, from our basic necessity to our wishes and the resources we need. In respect to this, we should pay the earth in return. Not just by speaking or pretending but actually paying attention and implementing it.</p>
+    </div>
+        </div>
+        <script>
+    const fadeElement = document.getElementById('scrollFadeText');
+
+    window.addEventListener('scroll', () => {
+      // Distance scrolled from top
+      const scrollPosition = window.scrollY;
+      
+      // Controls fade speed (300px of scroll to go completely invisible)
+      const maxScroll = 300; 
+      
+      // Calculate opacity between 0 and 1
+      let opacity = 1 - (scrollPosition / maxScroll);
+      if (opacity < 0) opacity = 0;
+      
+      fadeElement.style.opacity = opacity;
+    });
+        </script>
     </body>
+
     
 </html>
