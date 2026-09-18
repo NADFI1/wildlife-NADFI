@@ -18,8 +18,8 @@
 
     body {
       height: 100vh;
-      background-color: #011c0e;
-      color: #120126;
+      background-color: #0b011c;
+      color: #ffffff;
       font-family: system-ui, -apple-system, sans-serif;
       display: flex;
       justify-content: center;
@@ -47,19 +47,30 @@
     /* Keyframes for smooth color shift along the border */
     @keyframes rotateGradient {
       0% {
-        border-image-source: linear-gradient(0deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+        border-image-source: linear-gradient(0deg, #18edea, #42068c, #18edea);
       }
       25% {
-        border-image-source: linear-gradient(90deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+        border-image-source: linear-gradient(90deg, #18edea, 
+        #42068c, 
+        #18edea, 
+        #42068c);
       }
       50% {
-        border-image-source: linear-gradient(180deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+        border-image-source: linear-gradient(180deg, #18edea, 
+        #42068c, 
+        #18edea, 
+        #42068c);
       }
       75% {
-        border-image-source: linear-gradient(270deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+        border-image-source: linear-gradient(270deg, #18edea, 
+        #42068c, 
+        #18edea, );
       }
       100% {
-        border-image-source: linear-gradient(360deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+        border-image-source: linear-gradient(360deg, #18edea, 
+        #42068c, 
+        #18edea, 
+        #42068c);
       }
     }
 
@@ -71,7 +82,7 @@
       height: 100vh;
       pointer-events: none; /* Allows clicks to pass through to elements underneath */
       background: radial-gradient(
-        60px circle at var(--x, 50%) var(--y, 50%), 
+        100px circle at var(--x, 50%) var(--y, 50%), 
         rgba(66, 6, 140, 0.5), 
         transparent 40%
       );
