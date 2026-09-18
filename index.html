@@ -47,7 +47,31 @@
     }
         </style>
 <body>
+    <div class="spotlight"></div>
+
+  <div class="content">
     <p>nadfi</p>
+  </div>
+    <script>
+    function updateLightPosition(x, y) {
+      document.documentElement.style.setProperty('--x', `${x}px`);
+      document.documentElement.style.setProperty('--y', `${y}px`);
+    }
+    window.addEventListener('mousemove', (e) => {
+      updateLightPosition(e.clientX, e.clientY);
+    });
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0) {
+        updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    });
+    </script>
     </body>
 
     
