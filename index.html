@@ -1,27 +1,149 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>NADFI</title>
-<meta name="google-site-verification" content="3MzwCMmGiZSS0C-WJIWHXD79BrM9cNpIm0ShlMTTHw8" />
-        <meta charset="UTF-8">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <title>Interactive 3D Spotlight Experience</title>
+
+  <!-- GSAP & ScrollTrigger Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <!-- Three.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <!-- Links your style.css file -->
-  <link rel="stylesheet" href="style.html">
-    
-    <style>
-        * {
+
+  <style>
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-        .webgl-container {
-      height: 100vh;
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: #0b011c;
+      color: #ffffff;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Fixed Animated Gradient Border (Inset by 5px) */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 50px;
+      border: 2px solid transparent;
+      border-image: linear-gradient(
+        45deg, 
+        #18edea, 
+        #42068c, 
+        #18edea, 
+        #42068c
+      ) 1;
+      animation: rotateGradient 6s linear infinite;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    @keyframes rotateGradient {
+      0% { border-image-source: linear-gradient(0deg, #18edea, #42068c, #18edea, #42068c); }
+      25% { border-image-source: linear-gradient(90deg, #18edea, #42068c, #18edea, #42068c); }
+      50% { border-image-source: linear-gradient(180deg, #18edea, #42068c, #18edea, #42068c); }
+      75% { border-image-source: linear-gradient(270deg, #18edea, #42068c, #18edea, #42068c); }
+      100% { border-image-source: linear-gradient(360deg, #18edea, #42068c, #18edea, #42068c); }
+    }
+
+    /* Fixed Purple Spotlight Pointer (#42068c) */
+    .spotlight {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(
+        100px circle at var(--x, 50%) var(--y, 50%), 
+        rgba(66, 6, 140, 0.5), 
+        transparent 40%
+      );
+    }
+
+    /* PAGE 1: HERO LANDING PAGE */
+    .hero-section {
+      width: 100vw;
+      height: 100vh;
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .swipe-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 85%;
+      user-select: none;
+      animation: swipeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+    }
+
+    .content {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .content h1 {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+    .cutout-image {
+      max-height: 35vh;
+      max-width: 80vw;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 -10px 20px rgba(66, 6, 140, 0.4)); 
+    }
+
+    /* Responsive Desktop Layout (Left-aligned text, Right cutout image) */
+    @media screen and (min-width: 600px) {
+      .swipe-container {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        max-width: 1200px !important;
+      }
+
+      .content {
+        text-align: left !important;
+        margin-bottom: 0 !important;
+        max-width: 450px !important;
+      }
+
+      .content h1 {
+        font-size: 3.5rem;
+      }
+
+      .cutout-image {
+        max-height: 60vh !important;
+        max-width: 40vw !important;
+      }
+    }
+
+    /* SECTION 2: 3D SCROLL ANIMATION TRACK */
+    .webgl-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      z-index: 3;
     }
 
     #webgl {
@@ -33,220 +155,111 @@
       pointer-events: none;
     }
 
-    /* Section 2: Revealed Page */
+    /* PAGE 2: REVEALED SECOND PAGE */
     .next-page {
+      width: 100vw;
       height: 100vh;
-      background-color: #0a0a0c;
+      background-color: #050508;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       position: relative;
-      z-index: 2;
-    }
- @media (min-width: 768px) {
-      .swipe-container {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-end;
-      }
-
-      .content {
-        text-align: left;
-        margin-bottom: 100px; /* Moves text up slightly above bottom edge */
-        max-width: 50%;
-      }
-
-      .content h1 {
-        font-size: 3.5rem;
-      }
-
-      .cutout-image {
-        max-height: 75vh;
-        max-width: 45vw;
-      }
- }
-    body {
-      height: 100vh;
-      background-color: #0b011c;
-      color: #ffffff;
-      font-family: system-ui, -apple-system, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      touch-action: none;
-    }
-        body::before {
-      content: '';
-      position: fixed;
-      inset: 30px;
-      border: 2px solid transparent; /* Border width */
-      border-image: linear-gradient(
-        45deg, 
-        #18edea, 
-        #42068c, 
-        #18edea, 
-        #42068c
-      ) 1;
-      animation: rotateGradient 15s linear infinite;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    /* Keyframes for smooth color shift along the border */
-    @keyframes rotateGradient {
-      0% {
-        border-image-source: linear-gradient(0deg, #18edea, #42068c, #18edea);
-      }
-      25% {
-        border-image-source: linear-gradient(90deg, #18edea, 
-        #42068c, 
-        #18edea, 
-        #42068c);
-      }
-      50% {
-        border-image-source: linear-gradient(180deg, #18edea, 
-        #42068c, 
-        #18edea, 
-        #42068c);
-      }
-      75% {
-        border-image-source: linear-gradient(270deg, #18edea, 
-        #42068c, 
-        #18edea, );
-      }
-      100% {
-        border-image-source: linear-gradient(360deg, #18edea, 
-        #42068c, 
-        #18edea, 
-        #42068c);
-      }
-    }
-
-    .spotlight {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none; /* Allows clicks to pass through to elements underneath */
-      background: radial-gradient(
-        100px circle at var(--x, 50%) var(--y, 50%), 
-        rgba(66, 6, 140, 0.5), 
-        transparent 40%
-      );
-    }
-
-    .content {
+      z-index: 4;
       text-align: center;
-      z-index: 1;
-    }
-          .swipe-container {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%) translateY(100%);
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      width: 90%;
-      max-width: 1200px;
-      pointer-events: none;
-      user-select: none;
-      animation: swipeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
-          }
-      .content-text {
-      margin-bottom: 20px;
+      padding: 20px;
     }
 
-    .content-text h1 {
-      font-size: 2.5rem;
-      margin-bottom: 8px;
+    .next-page h1 {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
     }
 
-    .content-text p {
-      font-size: 1.1rem;
+    .next-page p {
+      font-size: 1.2rem;
       opacity: 0.8;
     }
 
-    .cutout-image {
-      max-height: 50vh;
-      max-width: 90vw;
-      object-fit: contain;
-      display: block;
-      filter: drop-shadow(0 -10px 20px rgba(66, 6, 140, 0.4)); 
-    }
-
-    /* Swipe Up Keyframes for Entire Block */
+    /* Initial Swipe Up Keyframe */
     @keyframes swipeUp {
       0% {
-        transform: translateX(-50%) translateY(100%);
+        transform: translateY(50px);
         opacity: 0;
       }
       100% {
-        transform: translateX(-50%) translateY(0%);
+        transform: translateY(0);
         opacity: 1;
       }
     }
-        </style>
-    </head>
+  </style>
+</head>
 <body>
-    <!-- Background spotlight pointer -->
-<div class="spotlight"></div>
 
-<!-- Page 1 / Hero Section -->
-<div class="hero-section">
-  <div class="swipe-container">
-    <div class="content">
-      <h1>Hover or Tap</h1>
-      <p>nadfi</p>
+  <!-- Pointer Spotlight Layer -->
+  <div class="spotlight"></div>
+
+  <!-- Page 1 -->
+  <section class="hero-section">
+    <div class="swipe-container">
+      <div class="content">
+        <h1>Hover or Tap</h1>
+        <p>nadfi</p>
+      </div>
+
+      <!-- Replace src with your PNG cutout file path -->
+      <img 
+        src="3d-render-of-lush-green-leaves-on-a-transparent-background-free-png (1).png" 
+        alt="Cutout Photo" 
+        class="cutout-image"
+      >
     </div>
+  </section>
 
-    <img 
-      src="3d-render-of-lush-green-leaves-on-a-transparent-background-free-png (1).png" 
-      alt="Cutout Photo" 
-      class="cutout-image"
-    >
+  <!-- 3D Canvas Track -->
+  <div class="webgl-container">
+    <canvas id="webgl"></canvas>
   </div>
-</div>
-<div class="webgl-container">
-  <canvas id="webgl"></canvas>
-</div>
-<div class="next-page">
-  <h1>Welcome to Page 2</h1>
-  <p>The 3D leaf transition completed.</p>
-</div>
+
+  <!-- Page 2 -->
+  <section class="next-page">
+    <h1>Welcome to Page 2</h1>
+    <p>The 3D leaf transition has completed.</p>
+  </section>
+
   <script>
+    // --- 1. SPOTLIGHT MOVEMENT LOGIC ---
+    function updateLightPosition(x, y) {
+      document.documentElement.style.setProperty('--x', `${x}px`);
+      document.documentElement.style.setProperty('--y', `${y}px`);
+    }
+
+    window.addEventListener('mousemove', (e) => updateLightPosition(e.clientX, e.clientY));
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0) updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
+    });
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
+    });
+
+    // --- 2. THREE.JS 3D SCENE SETUP ---
     gsap.registerPlugin(ScrollTrigger);
 
-    // --- THREE.JS SETUP ---
     const canvas = document.querySelector('#webgl');
     const scene = new THREE.Scene();
 
-    // Camera Setup
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.z = 7;
 
-    // Renderer
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0x18edea, 2);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
-
-    // Create 3D Card/Mesh with Texture
+    // Load cutout texture into 3D mesh
     const textureLoader = new THREE.TextureLoader();
-    // Replace with your cutout PNG
-    const texture = textureLoader.load('blooming-white-orchid-flower-3d-illustration-isolated-on-the-transparent-background-png.png');
+    const texture = textureLoader.load('3d-render-of-lush-green-leaves-on-a-transparent-background-free-png (1).png');
 
     const geometry = new THREE.PlaneGeometry(2.5, 3.5);
     const material = new THREE.MeshStandardMaterial({ 
@@ -256,69 +269,43 @@
     });
 
     const mesh = new THREE.Mesh(geometry, material);
-    
-    // Initial 3D Position (Hidden above screen and tilted back)
-    mesh.position.set(0, 6, 0);
+    mesh.position.set(0, 6, 0); // Start hidden above viewport
     mesh.rotation.set(-Math.PI / 3, Math.PI / 4, -0.2);
     scene.add(mesh);
 
-    // Render Loop
+    // Continuous 3D Render Loop
     function tick() {
       renderer.render(scene, camera);
       requestAnimationFrame(tick);
     }
     tick();
 
-    // Window Resize Handler
+    // Responsive Canvas Resize
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // --- GSAP SCROLL ANIMATION ---
+    // --- 3. GSAP 3D SCROLL SEQUENCE ---
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".webgl-container",
         start: "top top",
-        end: "+=250%",
+        end: "+=200%",
         scrub: 1,
         pin: true
       }
     });
 
-    // Step 1: Drop down into view while rotating smoothly in 3D
+    // Phase 1: Object falls into 3D view and rotates
     tl.to(mesh.position, { y: 0, z: 2, duration: 1.5, ease: "power2.out" }, 0)
       .to(mesh.rotation, { x: 0, y: Math.PI * 2, z: 0, duration: 1.5, ease: "power2.out" }, 0)
-
-    // Step 2: Fly forward right past the camera lens
+      
+    // Phase 2: Object zooms straight past camera lens to uncover Page 2
       .to(mesh.position, { z: 8, y: -1, duration: 1, ease: "power1.in" }, 1.5)
-      .to(mesh.rotation, { x: Math.PI / 4, duration: 1 }, 1.5)
       .to(material, { opacity: 0, duration: 0.5 }, 2);
   </script>
 
-    <script>
-    function updateLightPosition(x, y) {
-      document.documentElement.style.setProperty('--x', `${x}px`);
-      document.documentElement.style.setProperty('--y', `${y}px`);
-    }
-    window.addEventListener('mousemove', (e) => {
-      updateLightPosition(e.clientX, e.clientY);
-    });
-    window.addEventListener('touchstart', (e) => {
-      if (e.touches.length > 0) {
-        updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    });
-
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    });
-        
-    </script>
-    </body>
-
-    
+</body>
 </html>
