@@ -5,7 +5,10 @@
 <meta name="google-site-verification" content="3MzwCMmGiZSS0C-WJIWHXD79BrM9cNpIm0ShlMTTHw8" />
         <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Links your style.css file -->
   <link rel="stylesheet" href="style.html">
     
@@ -14,6 +17,32 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+        .webgl-container {
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+    }
+
+    #webgl {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Section 2: Revealed Page */
+    .next-page {
+      height: 100vh;
+      background-color: #0a0a0c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
     }
  @media (min-width: 768px) {
       .swipe-container {
@@ -165,20 +194,108 @@
         </style>
     </head>
 <body>
-    <div class="spotlight"></div>
+    <!-- Background spotlight pointer -->
+<div class="spotlight"></div>
 
-<div class="swipe-container">
-  <div class="content">
-    <h1>Hover or Tap</h1>
-    <p>nadfi</p>
+<!-- Page 1 / Hero Section -->
+<div class="hero-section">
+  <div class="swipe-container">
+    <div class="content">
+      <h1>Hover or Tap</h1>
+      <p>nadfi</p>
+    </div>
+
+    <img 
+      src="3d-render-of-lush-green-leaves-on-a-transparent-background-free-png (1).png" 
+      alt="Cutout Photo" 
+      class="cutout-image"
+    >
   </div>
-
-  <img 
-    src="3d-render-of-lush-green-leaves-on-a-transparent-background-free-png (1).png" 
-    alt="Cutout Photo" 
-    class="cutout-image"
-  >
 </div>
+<div class="webgl-container">
+  <canvas id="webgl"></canvas>
+</div>
+<div class="next-page">
+  <h1>Welcome to Page 2</h1>
+  <p>The 3D leaf transition completed.</p>
+</div>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // --- THREE.JS SETUP ---
+    const canvas = document.querySelector('#webgl');
+    const scene = new THREE.Scene();
+
+    // Camera Setup
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.z = 7;
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0x18edea, 2);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    // Create 3D Card/Mesh with Texture
+    const textureLoader = new THREE.TextureLoader();
+    // Replace with your cutout PNG
+    const texture = textureLoader.load('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80');
+
+    const geometry = new THREE.PlaneGeometry(2.5, 3.5);
+    const material = new THREE.MeshStandardMaterial({ 
+      map: texture, 
+      transparent: true,
+      side: THREE.DoubleSide
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    
+    // Initial 3D Position (Hidden above screen and tilted back)
+    mesh.position.set(0, 6, 0);
+    mesh.rotation.set(-Math.PI / 3, Math.PI / 4, -0.2);
+    scene.add(mesh);
+
+    // Render Loop
+    function tick() {
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    // Window Resize Handler
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // --- GSAP SCROLL ANIMATION ---
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".webgl-container",
+        start: "top top",
+        end: "+=250%",
+        scrub: 1,
+        pin: true
+      }
+    });
+
+    // Step 1: Drop down into view while rotating smoothly in 3D
+    tl.to(mesh.position, { y: 0, z: 2, duration: 1.5, ease: "power2.out" }, 0)
+      .to(mesh.rotation, { x: 0, y: Math.PI * 2, z: 0, duration: 1.5, ease: "power2.out" }, 0)
+
+    // Step 2: Fly forward right past the camera lens
+      .to(mesh.position, { z: 8, y: -1, duration: 1, ease: "power1.in" }, 1.5)
+      .to(mesh.rotation, { x: Math.PI / 4, duration: 1 }, 1.5)
+      .to(material, { opacity: 0, duration: 0.5 }, 2);
+  </script>
 
     <script>
     function updateLightPosition(x, y) {
