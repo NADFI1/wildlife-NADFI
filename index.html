@@ -27,6 +27,42 @@
       overflow: hidden;
       touch-action: none;
     }
+        body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      border: 4px solid transparent; /* Border width */
+      border-image: linear-gradient(
+        45deg, 
+        #cca91b, 
+        #ff5722, 
+        #9c27b0, 
+        #00bcd4, 
+        #cca91b
+      ) 1;
+      animation: rotateGradient 6s linear infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Keyframes for smooth color shift along the border */
+    @keyframes rotateGradient {
+      0% {
+        border-image-source: linear-gradient(0deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+      }
+      25% {
+        border-image-source: linear-gradient(90deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+      }
+      50% {
+        border-image-source: linear-gradient(180deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+      }
+      75% {
+        border-image-source: linear-gradient(270deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+      }
+      100% {
+        border-image-source: linear-gradient(360deg, #cca91b, #ff5722, #9c27b0, #00bcd4, #cca91b);
+      }
+    }
 
     .spotlight {
       position: fixed;
