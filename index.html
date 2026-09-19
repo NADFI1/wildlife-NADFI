@@ -3,14 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive 3D Spotlight Experience</title>
-
-  <!-- GSAP & ScrollTrigger Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <!-- Three.js Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
+  <title>Interactive Spotlight Page</title>
   <style>
     * {
       margin: 0;
@@ -20,19 +13,23 @@
 
     html, body {
       width: 100%;
-      min-height: 100vh;
-      background-color: #0b011c;
+      height: 100vh;
+      background-color: #02000d;
       color: #ffffff;
       font-family: system-ui, -apple-system, sans-serif;
-      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      touch-action: none;
     }
 
     /* Fixed Animated Gradient Border (Inset by 5px) */
     body::before {
       content: '';
       position: fixed;
-      inset: 50px;
-      border: 2px solid transparent;
+      inset: 5px;
+      border: 4px solid transparent;
       border-image: linear-gradient(
         45deg, 
         #18edea, 
@@ -69,23 +66,16 @@
       );
     }
 
-    /* PAGE 1: HERO LANDING PAGE */
-    .hero-section {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2;
-    }
-
+    /* Main Container with Swipe Up Animation */
     .swipe-container {
+      position: relative;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       width: 85%;
+      max-width: 1200px;
       user-select: none;
       animation: swipeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
     }
@@ -113,13 +103,12 @@
       filter: drop-shadow(0 -10px 20px rgba(66, 6, 140, 0.4)); 
     }
 
-    /* Responsive Desktop Layout (Left-aligned text, Right cutout image) */
+    /* Responsive Desktop Layout (Left Text, Right Cutout Image) */
     @media screen and (min-width: 600px) {
       .swipe-container {
         flex-direction: row !important;
         justify-content: space-between !important;
         align-items: center !important;
-        max-width: 1200px !important;
       }
 
       .content {
@@ -138,49 +127,7 @@
       }
     }
 
-    /* SECTION 2: 3D SCROLL ANIMATION TRACK */
-    .webgl-container {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      z-index: 3;
-    }
-
-    #webgl {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    /* PAGE 2: REVEALED SECOND PAGE */
-    .next-page {
-      width: 100vw;
-      height: 100vh;
-      background-color: #050508;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      position: relative;
-      z-index: 4;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .next-page h1 {
-      font-size: 2.8rem;
-      margin-bottom: 12px;
-    }
-
-    .next-page p {
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
-
-    /* Initial Swipe Up Keyframe */
+    /* Initial Entrance Keyframe */
     @keyframes swipeUp {
       0% {
         transform: translateY(50px);
@@ -198,112 +145,37 @@
   <!-- Pointer Spotlight Layer -->
   <div class="spotlight"></div>
 
-  <!-- Page 1 -->
-  <section class="hero-section">
-    <div class="swipe-container">
-      <div class="content">
-        <h1>Hover or Tap</h1>
-        <p>nadfi</p>
-      </div>
-
-      <!-- Replace src with your PNG cutout file path -->
-      <img 
-        src="3d-render-of-lush-green-leaves-on-a-transparent-background-free-png (1).png" 
-        alt="Cutout Photo" 
-        class="cutout-image"
-      >
+  <!-- Landing Content -->
+  <div class="swipe-container">
+    <div class="content">
+      <h1>Hover or Tap</h1>
+      <p>nadfi</p>
     </div>
-  </section>
 
-  <!-- 3D Canvas Track -->
-  <div class="webgl-container">
-    <canvas id="webgl"></canvas>
+    <img 
+      src="3d-render-of-lush-green-leaves-on-a-transparent-background-free-png (1).png" 
+      alt="Cutout Photo" 
+      class="cutout-image"
+    >
   </div>
 
-  <!-- Page 2 -->
-  <section class="next-page">
-    <h1>Welcome to Page 2</h1>
-    <p>The 3D leaf transition has completed.</p>
-  </section>
-
   <script>
-    // --- 1. SPOTLIGHT MOVEMENT LOGIC ---
+    // Spotlight Pointer Movement
     function updateLightPosition(x, y) {
       document.documentElement.style.setProperty('--x', `${x}px`);
       document.documentElement.style.setProperty('--y', `${y}px`);
     }
 
+    // Desktop Mouse Events
     window.addEventListener('mousemove', (e) => updateLightPosition(e.clientX, e.clientY));
+
+    // Mobile/Tablet Touch Events
     window.addEventListener('touchstart', (e) => {
       if (e.touches.length > 0) updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
     });
     window.addEventListener('touchmove', (e) => {
       if (e.touches.length > 0) updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
     });
-
-    // --- 2. THREE.JS 3D SCENE SETUP ---
-    gsap.registerPlugin(ScrollTrigger);
-
-    const canvas = document.querySelector('#webgl');
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.z = 7;
-
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-    scene.add(ambientLight);
-
-    // Load cutout texture into 3D mesh
-    const textureLoader = new THREE.TextureLoader();
-    const texture = textureLoader.load('https://github.com/NADFI1/wildlife-NADFI/blob/main/blooming-white-orchid-flower-3d-illustration-isolated-on-the-transparent-background-png.png');
-    const geometry = new THREE.PlaneGeometry(2.5, 3.5);
-    const material = new THREE.MeshStandardMaterial({ 
-      map: texture, 
-      transparent: true,
-      side: THREE.DoubleSide
-    });
-
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(0, 6, 0); // Start hidden above viewport
-    mesh.rotation.set(-Math.PI / 3, Math.PI / 4, -0.2);
-    scene.add(mesh);
-
-    // Continuous 3D Render Loop
-    function tick() {
-      renderer.render(scene, camera);
-      requestAnimationFrame(tick);
-    }
-    tick();
-
-    // Responsive Canvas Resize
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // --- 3. GSAP 3D SCROLL SEQUENCE ---
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".webgl-container",
-        start: "top top",
-        end: "+=200%",
-        scrub: 1,
-        pin: true
-      }
-    });
-
-    // Phase 1: Object falls into 3D view and rotates
-    tl.to(mesh.position, { y: 0, z: 2, duration: 1.5, ease: "power2.out" }, 0)
-      .to(mesh.rotation, { x: 0, y: Math.PI * 2, z: 0, duration: 1.5, ease: "power2.out" }, 0)
-      
-    // Phase 2: Object zooms straight past camera lens to uncover Page 2
-      .to(mesh.position, { z: 8, y: -1, duration: 1, ease: "power1.in" }, 1.5)
-      .to(material, { opacity: 0, duration: 0.5 }, 2);
   </script>
 
 </body>
