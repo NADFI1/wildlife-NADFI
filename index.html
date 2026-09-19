@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NADFI</title>
+  <title>Interactive Spotlight Page</title>
   <style>
     * {
       margin: 0;
@@ -14,7 +14,7 @@
     html, body {
       width: 100%;
       height: 100vh;
-      background-color: #020800;
+      background-color: #000000;
       color: #ffffff;
       font-family: system-ui, -apple-system, sans-serif;
       display: flex;
@@ -24,33 +24,7 @@
       touch-action: none;
     }
 
-    /* Fixed Animated Gradient Border (Inset by 5px) */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 80px;
-      border: 3px solid transparent;
-      border-image: linear-gradient(
-       45deg, 
-        #18edea, 
-        #e7ed39, 
-        #ffbb00, 
-        #42068c
-      ) 1;
-      animation: rotateGradient 6s linear infinite;
-      pointer-events: none;
-      z-index: 20;
-    }
-
-    @keyframes rotateGradient {
-      0% { border-image-source: linear-gradient(0deg, #18edea, #e7ed39, #ffbb00, #42068c); }
-      25% { border-image-source: linear-gradient(90deg, #18edea, #e7ed39, #ffbb00, #42068c); }
-      50% { border-image-source: linear-gradient(180deg, #18edea, #e7ed39, #ffbb00, #42068c); }
-      75% { border-image-source: linear-gradient(270deg, #18edea, #e7ed39, #ffbb00, #42068c); }
-      100% { border-image-source: linear-gradient(360deg, #18edea, #e7ed39, #ffbb00, #42068c); }
-    }
-
-    /* Fixed Purple Spotlight Pointer (#42068c) */
+    /* Fixed Smooth Spotlight Pointer (#42068c) */
     .spotlight {
       position: fixed;
       top: 0;
@@ -59,14 +33,15 @@
       height: 100vh;
       pointer-events: none;
       z-index: 1;
+      will-change: background;
       background: radial-gradient(
-        100px circle at var(--x, 50%) var(--y, 50%), 
+        600px circle at var(--x, 50%) var(--y, 50%), 
         rgba(66, 6, 140, 0.5), 
         transparent 40%
       );
     }
 
-    /* Main Container with Swipe Up Animation */
+    /* Hardware-Accelerated Container for Smooth Swipe-Up */
     .swipe-container {
       position: relative;
       z-index: 2;
@@ -77,7 +52,8 @@
       width: 85%;
       max-width: 1200px;
       user-select: none;
-      animation: swipeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+      will-change: transform, opacity;
+      animation: swipeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
     }
 
     .content {
@@ -103,7 +79,7 @@
       filter: drop-shadow(0 -10px 20px rgba(66, 6, 140, 0.4)); 
     }
 
-    /* Responsive Desktop Layout (Left Text, Right Cutout Image) */
+    /* Desktop Responsive Layout */
     @media screen and (min-width: 600px) {
       .swipe-container {
         flex-direction: row !important;
@@ -127,14 +103,14 @@
       }
     }
 
-    /* Initial Entrance Keyframe */
+    /* Optimized Hardware-Accelerated Animation */
     @keyframes swipeUp {
       0% {
-        transform: translateY(50px);
+        transform: translate3d(0, 50px, 0);
         opacity: 0;
       }
       100% {
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
         opacity: 1;
       }
     }
@@ -160,22 +136,43 @@
   </div>
 
   <script>
-    // Spotlight Pointer Movement
-    function updateLightPosition(x, y) {
-      document.documentElement.style.setProperty('--x', `${x}px`);
-      document.documentElement.style.setProperty('--y', `${y}px`);
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let isTicking = false;
+
+    // Smooth Update Loop using requestAnimationFrame
+    function updateLightPosition() {
+      document.documentElement.style.setProperty('--x', `${mouseX}px`);
+      document.documentElement.style.setProperty('--y', `${mouseY}px`);
+      isTicking = false;
     }
 
-    // Desktop Mouse Events
-    window.addEventListener('mousemove', (e) => updateLightPosition(e.clientX, e.clientY));
+    function requestUpdate(x, y) {
+      mouseX = x;
+      mouseY = y;
+      if (!isTicking) {
+        requestAnimationFrame(updateLightPosition);
+        isTicking = true;
+      }
+    }
 
-    // Mobile/Tablet Touch Events
+    // Desktop Mouse Event Listener
+    window.addEventListener('mousemove', (e) => {
+      requestUpdate(e.clientX, e.clientY);
+    }, { passive: true });
+
+    // Mobile/Tablet Touch Event Listeners
     window.addEventListener('touchstart', (e) => {
-      if (e.touches.length > 0) updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
-    });
+      if (e.touches.length > 0) {
+        requestUpdate(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
     window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) updateLightPosition(e.touches[0].clientX, e.touches[0].clientY);
-    });
+      if (e.touches.length > 0) {
+        requestUpdate(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
   </script>
 
 </body>
