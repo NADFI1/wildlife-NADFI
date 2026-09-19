@@ -1,179 +1,326 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+<html>
+    <head>
+        <title>NADFI</title>
+<meta name="google-site-verification" content="3MzwCMmGiZSS0C-WJIWHXD79BrM9cNpIm0ShlMTTHw8" />
+        <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Spotlight Page</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
-    html, body {
-      width: 100%;
-      height: 100vh;
-      background-color: #000000;
-      color: #ffffff;
-      font-family: system-ui, -apple-system, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      touch-action: none;
-    }
-
-    /* Fixed Smooth Spotlight Pointer (#42068c) */
-    .spotlight {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 1;
-      will-change: background;
-      background: radial-gradient(
-        600px circle at var(--x, 50%) var(--y, 50%), 
-        rgba(66, 6, 140, 0.5), 
-        transparent 40%
-      );
-    }
-
-    /* Hardware-Accelerated Container for Smooth Swipe-Up */
-    .swipe-container {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 85%;
-      max-width: 1200px;
-      user-select: none;
-      will-change: transform, opacity;
-      animation: swipeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
-    }
-
-    .content {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .content h1 {
-      font-size: 2.2rem;
-      margin-bottom: 8px;
-    }
-
-    .content p {
-      font-size: 1.1rem;
-      opacity: 0.8;
-    }
-
-    .cutout-image {
-      max-height: 35vh;
-      max-width: 80vw;
-      object-fit: contain;
-      display: block;
-      filter: drop-shadow(0 -10px 20px rgba(66, 6, 140, 0.4)); 
-    }
-
-    /* Desktop Responsive Layout */
-    @media screen and (min-width: 600px) {
-      .swipe-container {
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-      }
-
-      .content {
-        text-align: left !important;
-        margin-bottom: 0 !important;
-        max-width: 450px !important;
-      }
-
-      .content h1 {
-        font-size: 3.5rem;
-      }
-
-      .cutout-image {
-        max-height: 60vh !important;
-        max-width: 40vw !important;
-      }
-    }
-
-    /* Optimized Hardware-Accelerated Animation */
-    @keyframes swipeUp {
-      0% {
-        transform: translate3d(0, 50px, 0);
+  <!-- Links your style.css file -->
+  <link rel="stylesheet" href="style.html">
+    </head>
+    <style>
+          @keyframes fadeIn {
+      from {
         opacity: 0;
+        transform: translateY(10px);
       }
-      100% {
-        transform: translate3d(0, 0, 0);
+      to {
         opacity: 1;
+        transform: translateY(0);
       }
     }
-  </style>
-</head>
-<body>
 
-  <!-- Pointer Spotlight Layer -->
-  <div class="spotlight"></div>
+    .fade-text {
+      animation: fadeIn 1.5s ease-out forwards;
+    
+      transition: opacity 0.1s linear;
+      will-change: opacity;
+    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #a4c95f;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Full screen height */
+            
+            /* Replace with your image file name */
+            background-image: url("https://i.pinimg.com/1200x/d4/b9/c1/d4b9c12b408b8d9fa78ddf7b9d23e92d.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: scroll; /* Scrolls up with page */
 
-  <!-- Landing Content -->
-  <div class="swipe-container">
-    <div class="content">
-      <h1>Hover or Tap</h1>
-      <p>nadfi</p>
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Text content over the image */
+        .hero-content {
+            color: #ffffff;
+            text-align: center;
+        }
+
+        /* Next section below the image header */
+        .main-content {
+            padding: 60px 20px;
+            background-color: #ffffff;
+            min-height: 500vh;
+        }
+   
+        @media (max-width: 600px) {
+            body {
+                background-position: center center;
+                background-size: cover;
+            }
+        }
+        
+        h1 {
+            color:black;
+            font-family: Comic Sans MS;
+        }
+        p {
+            color:black;
+            font-family: Comic Sans MS;
+            font-size: larger;
+        }
+        .photo-text {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.navbar {
+                background-color: #282a35;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                list-style: none;
+                display: flex;
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav-links li a {
+                display: block;
+                color: white;
+                text-decoration: none;
+                padding: 14px 20px;
+                font-weight: bold;
+                font-size: 25px;
+            }
+
+            .nav-links li a:hover {
+                background-color: #000000;
+                color: #04aa6d;
+            }
+            .slider-container {
+                position: relative;
+                max-width: 900px;
+                margin: 20px auto;
+                overflow: hidden;
+                border-radius: 8px;
+            }
+
+            .slide {
+                display: none; /* Hide all slides by default */
+                position: relative;
+            }
+
+            .slide.active {
+                display: block; /* Show active slide */
+            }
+
+            .slide img {
+                width: 100%;
+                height: 450px;
+                object-fit: cover;
+                display: block;
+            }
+
+            /* Overlay Text Box */
+            .text-overlay {
+                position: absolute;
+                bottom: 30px;
+                left: 30px;
+                background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+                padding: 15px 25px;
+                border-radius: 5px;
+            }
+
+            /* Hyperlink style for overlay text */
+            .text-overlay a {
+                color: #ffffff;
+                font-size: 22px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .text-overlay a:hover {
+                color: #04aa6d;
+                text-decoration: underline;
+            }
+
+            /* Arrow Buttons */
+            .arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: rgba(0, 0, 0, 0.5);
+                color: white;
+                font-size: 24px;
+                padding: 12px 18px;
+                border: none;
+                cursor: pointer;
+                border-radius: 50%;
+                user-select: none;
+                transition: background-color 0.3s;
+            }
+
+            .arrow:hover {
+                background-color: rgba(0, 0, 0, 0.9);
+            }
+
+            .prev { left: 15px; }
+            .next { right: 15px; }
+    </style>
+    <body>
+        <div class="content">
+    
+    <!-- Target Text Wrapper -->
+    <div class="fade-text" id="scrollFadeText">
+        
+        <header class="hero">
+        
+            <div class="hero-content">
+            <div style="text-align: center;">
+  <img src="IMG-20260917-WA0003.jpg" alt="My Photo" style="max-width: 20%; height: 20%;" >
+        </div>
+            <br>
+                <h1 style="font-size:500%;color:white;">NADFI</h1>
+            <p>Nature and Animal Development Federation Initiatives</p>
+        </div>
+    </header>
+    <main class="main-content">
+<style>
+.photo-text {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+
+.photo-text img {
+    width: 100px;
+    height: auto;
+}
+
+.photo-text p {
+    font-size: 15px;
+    margin: 0;
+}
+</style>
+<nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="goals.html">Goals</a></li>
+                <li><a href="decisions.html">Decisions</a></li>
+            </ul>
+            <ul class="nav-links">
+                <li><a href="account.html">Account</a></li>
+                <li><a href="fridaynews.html">Friday News</a></li>
+            </ul>
+        </nav>
+
+<div class="slider-container">
+            
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <img src="https://i.pinimg.com/1200x/ea/a3/78/eaa37823f5ca6fa4e459064da1df297d.jpg" alt="Slide 1">
+                <div class="text-overlay">
+                    <a href="project1.html" target="_blank">Learn More About Nature Project 1</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide">
+                <img src="https://i.pinimg.com/1200x/4c/e5/bc/4ce5bc60a2473977a4d8823ac0e8b96a.jpg" alt="Slide 2">
+                <div class="text-overlay">
+                    <a href="https://example.com/page2" target="_blank">Discover Animal Welfare Goals</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide">
+                <img src="https://i.pinimg.com/1200x/53/fa/9c/53fa9cedcca850a690ebbc95dae94d7f.jpg" alt="Slide 3">
+                <div class="text-overlay">
+                    <a href="https://example.com/page3" target="_blank">Read Recent Federation Decisions</a>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="slide">
+                <img src="https://i.pinimg.com/1200x/04/f1/d4/04f1d47ece44fa4a29b5a0debf481c87.jpg" alt="Slide 4">
+                <div class="text-overlay">
+                    <a href="https://example.com/page4" target="_blank">Explore Our Environmental Initiatives</a>
+                </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="slide">
+                <img src="https://i.pinimg.com/1200x/b0/a1/01/b0a101af91d54566b8c1299a7b38c99c.jpg" alt="Slide 5">
+                <div class="text-overlay">
+                    <a href="https://example.com/page5" target="_blank">Join the NADFI Community Today</a>
+                </div>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <button class="arrow prev" onclick="changeSlide(-1)">❮</button>
+            <button class="arrow next" onclick="changeSlide(1)">❯</button>
+        </div>
+
+        <!-- JavaScript logic to handle sliding -->
+        <script>
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+
+            function changeSlide(direction) {
+                // Remove active class from current slide
+                slides[currentSlide].classList.remove('active');
+
+                // Calculate next slide index (with loop back)
+                currentSlide = (currentSlide + direction + slides.length) % slides.length;
+
+                // Add active class to new slide
+                slides[currentSlide].classList.add('active');
+            }
+        </script>
+     <h1>Nature and Animal Development Federation Initiatives</h1>
+        <p>Environmental awareness serves as a powerful catalyst for both ecological conservation and human peace. When individuals and communities recognize their deep interconnection with the natural world, protecting ecosystems transforms from a regulatory requirement into a shared moral commitment. Educating people about resource stewardship helps alleviate the competition over land, water, and vital resources that so often fuels social tension and conflict. By fostering empathy, environmental education, and collaborative conservation, society builds a culture of mutual respect—demonstrating that living in harmony with nature is fundamentally linked to living in peace with one another.</p>
+    <h1 style="font-family:Saturday Night;"> A Small Step, A Big Difference...</h1>
+        <h3> Nature and Animal Development Federation Industries (NADFI)</h3>
+    <p>This industry federation highly focusses on the prevention of the wildlife and nature we are loosing every year. Every day, many species of microbes, animals and plants extinct due to the lack of attention given by us. The beginning of humans started from animals, plants and the fresh resources. if we don't pay attention to environment, we will have to pay a high consequence afterwards. Due to development in many countries like india, there is a vast disturbance in ecosystem. This is leading to more possibilities of natural dissasters, and delay in winter and rains. because of that, many people are prone to diseases due to the pollution on the earth. Even the oceans waters are covered with plastics and this implements to the extinction of many aquatic species. the rivers are now poluted by the waste of industries and the one use plastics. This earth provides us with everything we need, from our basic necessity to our wishes and the resources we need. In respect to this, we should pay the earth in return. Not just by speaking or pretending but actually paying attention and implementing it.</p>
     </div>
+        </div>
+        <script>
+    const fadeElement = document.getElementById('scrollFadeText');
 
-    <img 
-      src="3d-render-of-lush-green-leaves-on-a-transparent-background-free-png (1).png" 
-      alt="Cutout Photo" 
-      class="cutout-image"
-    >
-  </div>
+    window.addEventListener('scroll', () => {
+      // Distance scrolled from top
+      const scrollPosition = window.scrollY;
+      
+      // Controls fade speed (300px of scroll to go completely invisible)
+      const maxScroll = 300; 
+      
+      // Calculate opacity between 0 and 1
+      let opacity = 1 - (scrollPosition / maxScroll);
+      if (opacity < 0) opacity = 0;
+      
+      fadeElement.style.opacity = opacity;
+    });
+        </script>
+    </body>
 
-  <script>
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let isTicking = false;
-
-    // Smooth Update Loop using requestAnimationFrame
-    function updateLightPosition() {
-      document.documentElement.style.setProperty('--x', `${mouseX}px`);
-      document.documentElement.style.setProperty('--y', `${mouseY}px`);
-      isTicking = false;
-    }
-
-    function requestUpdate(x, y) {
-      mouseX = x;
-      mouseY = y;
-      if (!isTicking) {
-        requestAnimationFrame(updateLightPosition);
-        isTicking = true;
-      }
-    }
-
-    // Desktop Mouse Event Listener
-    window.addEventListener('mousemove', (e) => {
-      requestUpdate(e.clientX, e.clientY);
-    }, { passive: true });
-
-    // Mobile/Tablet Touch Event Listeners
-    window.addEventListener('touchstart', (e) => {
-      if (e.touches.length > 0) {
-        requestUpdate(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
-
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        requestUpdate(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
-  </script>
-
-</body>
+    
 </html>
