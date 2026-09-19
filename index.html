@@ -14,7 +14,7 @@
     html, body {
       width: 100%;
       height: 100vh;
-      background-color: #010500;
+      background-color: #020800;
       color: #ffffff;
       font-family: system-ui, -apple-system, sans-serif;
       display: flex;
@@ -31,10 +31,10 @@
       inset: 80px;
       border: 3px solid transparent;
       border-image: linear-gradient(
-        45deg, 
+       45deg, 
         #18edea, 
-        #42068c, 
-        #18edea, 
+        #e7ed39, 
+        #ffbb00, 
         #42068c
       ) 1;
       animation: rotateGradient 6s linear infinite;
@@ -43,11 +43,11 @@
     }
 
     @keyframes rotateGradient {
-      0% { border-image-source: linear-gradient(0deg, #18edea, #42068c, #18edea, #42068c); }
-      25% { border-image-source: linear-gradient(90deg, #18edea, #42068c, #18edea, #42068c); }
-      50% { border-image-source: linear-gradient(180deg, #18edea, #42068c, #18edea, #42068c); }
-      75% { border-image-source: linear-gradient(270deg, #18edea, #42068c, #18edea, #42068c); }
-      100% { border-image-source: linear-gradient(360deg, #18edea, #42068c, #18edea, #42068c); }
+      0% { border-image-source: linear-gradient(0deg, #18edea, #e7ed39, #ffbb00, #42068c); }
+      25% { border-image-source: linear-gradient(90deg, #18edea, #e7ed39, #ffbb00, #42068c); }
+      50% { border-image-source: linear-gradient(180deg, #18edea, #e7ed39, #ffbb00, #42068c); }
+      75% { border-image-source: linear-gradient(270deg, #18edea, #e7ed39, #ffbb00, #42068c); }
+      100% { border-image-source: linear-gradient(360deg, #18edea, #e7ed39, #ffbb00, #42068c); }
     }
 
     /* Fixed Purple Spotlight Pointer (#42068c) */
