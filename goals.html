@@ -1,318 +1,222 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>NADFI</title>
-        <link rel="stylesheet" href="style.html">
-    </head>
-    <style>
-        body {
-            margin: 30px;
-            background-color: antiquewhite;
-            background-image: url('https://i.pinimg.com/736x/92/d8/87/92d887766136c5b82ccc311c4ae53ffd.jpg');
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center;
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NADFI - Goals</title>
+
+  <!-- Google Search Console verification meta tag -->
+  <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" />
+
+  <!-- Favicon / Logo -->
+  <link rel="icon" type="image/png" href="Logo.png">
+
+  <!-- Link to central style.css stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Hidden Control Checkbox for Mobile Drawer Toggle -->
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+
+  <!-- Mobile Sticky Header Bar -->
+  <div class="mobile-header">
+    <label for="nav-toggle" class="hamburger-btn">&#9776;</label>
+    <a href="index.html">
+      <img src="Logo.png" alt="NADFI Logo" class="site-logo">
+    </a>
+  </div>
+
+  <!-- Mobile Slide-Out Side Drawer Menu -->
+  <div class="side-nav">
+    <label for="nav-toggle" class="close-btn">&times;</label>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="account.html">Account</a>
+    <a href="decisions.html">Decisions</a>
+    <a href="fridaynews.html">Friday News</a>
+    <a href="goals.html">Goals</a>
+    <a href="project1.html">Project 1</a>
+  </div>
+
+  <!-- Mobile Background Overlay for Menu -->
+  <label for="nav-toggle" class="sidebar-overlay"></label>
+
+  <!-- Desktop Top Navigation Bar -->
+  <nav class="desktop-nav">
+    <a href="index.html">
+      <img src="Logo.png" alt="NADFI Logo" class="site-logo">
+    </a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="account.html">Account</a>
+    <a href="decisions.html">Decisions</a>
+    <a href="fridaynews.html">Friday News</a>
+    <a href="goals.html">Goals</a>
+    <a href="project1.html">Project 1</a>
+  </nav>
+
+  <!-- Main Goals Content -->
+  <div class="content">
+    <div class="photo-text">
+      <img src="IMG-20260917-WA0003.jpg" alt="NADFI Logo" style="width: 100px; height: auto;">
+      <h1 style="font-size: 250%;">NADFI</h1>
+    </div>
+
+    <h1>Protecting Nature, Life and Building Hopes.</h1>
+    <p>This project allows people to spread awareness and commit their daily goals as a small step towards the care for the nature. This does not only contain caring for nature but to maintain peace and harmony among humans and nature leading to true self development of nations along with attention to nature and wildlife. FOLLOWING ARE THE IDEAS TO PERFORM IT, TICK THE ONE YOU DO AND GET A STREAK...</p>
+
+    <ul class="goals-list" aria-label="Goals to complete">
+      <li class="goal-item"><label><input type="checkbox"><span>STEP 1: keep the surrounding nature in check.</span></label></li>
+      <li class="goal-item"><label><input type="checkbox"><span>STEP 2: spread awareness.</span></label></li>
+      <li class="goal-item"><label><input type="checkbox"><span>STEP 3: feed atleast one animal per day.</span></label></li>
+    </ul>
+
+    <div id="completion-message" class="badge-stack" hidden>
+      <span id="daily-badge" class="starter-badge" role="status">
+        <img src="Screenshot 2026-08-20 084859.png" alt="NADFI badge picture">
+        <span id="badge-label">STARTER1</span>
+      </span>
+      <span id="bronze-badge" class="starter-badge bronze-badge" role="status" hidden>
+        <img src="Screenshot 2026-08-20 084859.png" alt="NADFI bronze badge picture">
+        <span id="bronze-label">BRONZE1</span>
+      </span>
+      <span id="silver-badge" class="starter-badge silver-badge" role="status" hidden>
+        <img src="Screenshot 2026-08-20 084859.png" alt="NADFI silver badge picture">
+        <span id="silver-label">SILVER1</span>
+      </span>
+      <span id="gold-badge" class="starter-badge gold-badge" role="status" hidden>
+        <img src="Screenshot 2026-08-20 084859.png" alt="NADFI gold badge picture">
+        <span>GOLD1</span>
+      </span>
+      <span id="congratulations" class="congratulations" role="status"></span>
+    </div>
+  </div>
+
+  <!-- JavaScript functionality for Goals & Badges -->
+  <script>
+    const goalCheckboxes = document.querySelectorAll('.goals-list input[type="checkbox"]');
+    const completionMessage = document.getElementById('completion-message');
+    const badgeLabel = document.getElementById('badge-label');
+    const bronzeBadge = document.getElementById('bronze-badge');
+    const bronzeLabel = document.getElementById('bronze-label');
+    const silverBadge = document.getElementById('silver-badge');
+    const silverLabel = document.getElementById('silver-label');
+    const goldBadge = document.getElementById('gold-badge');
+    const congratulations = document.getElementById('congratulations');
+    const goalStorageKey = 'nadfi-goals';
+    const currentDate = new Date();
+    const today = currentDate.toLocaleDateString('en-CA');
+    const currentMonth = today.slice(0, 7);
+    const currentYear = String(currentDate.getFullYear());
+
+    function getProgress() {
+      try {
+        return JSON.parse(localStorage.getItem(goalStorageKey) || 'null') || { completedDates: [] };
+      } catch (error) {
+        return { completedDates: [] };
+      }
+    }
+
+    function saveTodaysGoals(progress) {
+      progress.date = today;
+      progress.checked = [...goalCheckboxes].map((checkbox) => checkbox.checked);
+      localStorage.setItem(goalStorageKey, JSON.stringify(progress));
+    }
+
+    function scheduleDailyReset() {
+      const nextDay = new Date(currentDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      nextDay.setHours(0, 0, 0, 0);
+      window.setTimeout(() => window.location.reload(), nextDay - currentDate);
+    }
+
+    function monthDifference(startMonth, endMonth) {
+      const [startYear, startNumber] = startMonth.split('-').map(Number);
+      const [endYear, endNumber] = endMonth.split('-').map(Number);
+      return (endYear - startYear) * 12 + endNumber - startNumber;
+    }
+
+    function isLastDayOfMonth() {
+      return new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1).getMonth() !== currentDate.getMonth();
+    }
+
+    function loadTodaysGoals() {
+      const progress = getProgress();
+      progress.completedDates = Array.isArray(progress.completedDates) ? progress.completedDates : [];
+
+      if (progress.date !== today) {
+        goalCheckboxes.forEach((checkbox) => checkbox.checked = false);
+        progress.checked = [...goalCheckboxes].map(() => false);
+        saveTodaysGoals(progress);
+        return;
+      }
+
+      goalCheckboxes.forEach((checkbox, index) => {
+        checkbox.checked = progress.checked && progress.checked[index] === true;
+      });
+    }
+
+    function updateCompletionBadge() {
+      const allGoalsComplete = [...goalCheckboxes].every((checkbox) => checkbox.checked);
+      const progress = getProgress();
+      progress.completedDates = Array.isArray(progress.completedDates) ? progress.completedDates : [];
+      progress.bronzeWeeks = Array.isArray(progress.bronzeWeeks) ? progress.bronzeWeeks : [];
+      progress.silverMonths = Array.isArray(progress.silverMonths) ? progress.silverMonths : [];
+      progress.goldYears = Array.isArray(progress.goldYears) ? progress.goldYears : [];
+      const completedDays = progress.completedDates.length;
+      const startingMonth = progress.startingMonth || progress.completedDates[0]?.slice(0, 7);
+      const monthNumber = startingMonth ? monthDifference(startingMonth, currentMonth) : 0;
+      const hasSilverBadge = allGoalsComplete && progress.silverMonths.length > 0;
+      const hasGoldBadge = allGoalsComplete && progress.goldYears.length > 0;
+
+      completionMessage.hidden = !allGoalsComplete;
+      badgeLabel.textContent = `STARTER${completedDays}`;
+      bronzeBadge.hidden = progress.bronzeWeeks.length < 1;
+      bronzeLabel.textContent = `BRONZE${progress.bronzeWeeks.length}`;
+      silverBadge.hidden = !hasSilverBadge;
+      silverLabel.textContent = `SILVER${progress.silverMonths.length}`;
+      goldBadge.hidden = !hasGoldBadge;
+      congratulations.textContent = allGoalsComplete ? (progress.congratulations || '') : '';
+    }
+
+    goalCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', () => {
+      const progress = getProgress();
+      progress.completedDates = Array.isArray(progress.completedDates) ? progress.completedDates : [];
+      progress.bronzeWeeks = Array.isArray(progress.bronzeWeeks) ? progress.bronzeWeeks : [];
+      progress.silverMonths = Array.isArray(progress.silverMonths) ? progress.silverMonths : [];
+      progress.goldYears = Array.isArray(progress.goldYears) ? progress.goldYears : [];
+      saveTodaysGoals(progress);
+
+      if ([...goalCheckboxes].every((goal) => goal.checked) && !progress.completedDates.includes(today)) {
+        progress.completedDates.push(today);
+        progress.startingMonth = progress.startingMonth || currentMonth;
+        const completedDays = progress.completedDates.length;
+        const newBadges = [`STARTER${completedDays}`];
+
+        if (currentDate.getDay() === 0 && !progress.bronzeWeeks.includes(today)) {
+          progress.bronzeWeeks.push(today);
+          newBadges.push(`BRONZE${progress.bronzeWeeks.length}`);
         }
-        @media (max-width: 600px) {
-            body {
-                background-position: center center;
-                background-size: cover;
-            }
+        const monthNumber = monthDifference(progress.startingMonth, currentMonth);
+
+        if (isLastDayOfMonth() && monthNumber > 0 && !progress.silverMonths.includes(currentMonth)) {
+          progress.silverMonths.push(currentMonth);
+          newBadges.push(`SILVER${progress.silverMonths.length}`);
         }
-        h1 {
-            color:rgb(6, 6, 87);
-            font-family: lionel system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        if (currentDate.getMonth() === 11 && currentDate.getDate() === 31 && !progress.goldYears.includes(currentYear)) {
+          progress.goldYears.push(currentYear);
+          newBadges.push(`GOLD${progress.goldYears.length}`);
         }
-        p {
-            color:black;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: larger;
-        }
-        .photo-text {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-.goals-list {
-    max-width: 850px;
-    margin: 24px 0;
-    padding: 0;
-    list-style: none;
-}
-[hidden] {
-    display: none !important;
-}
-.goal-item {
-    margin: 12px 0;
-}
-.goal-item label {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
-    background-color: rgba(255, 255, 255, 0.82);
-    border-left: 5px solid #04aa6d;
-    color: #111;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: large;
-    cursor: pointer;
-}
-.goal-item input {
-    width: 20px;
-    height: 20px;
-    flex: 0 0 auto;
-    accent-color: #04aa6d;
-}
-.goal-item input:checked + span {
-    color: #555;
-    text-decoration: line-through;
-}
-.starter-badge {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 150px;
-    padding: 10px 14px;
-    background-color: #04aa6d;
-    color: white;
-    border: 3px solid white;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: large;
-    font-weight: bold;
-}
-.starter-badge img {
-    width: 48px;
-    height: 48px;
-    object-fit: cover;
-}
-.bronze-badge {
-    background-color: #a97142;
-}
-.silver-badge {
-    background-color: #c0c7d1;
-    color: #1d2733;
-}
-.gold-badge {
-    background-color: #d4a017;
-    color: #241b00;
-}
-.badge-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.congratulations {
-    color: #037b50;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-}
-.navbar {
-                background-color: #282a35;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0 20px;
-            }
+        progress.congratulations = `Congratulations! You earned ${newBadges.join(' and ')}.`;
+        saveTodaysGoals(progress);
+      }
+      updateCompletionBadge();
+    }));
 
-            .nav-links {
-                list-style: none;
-                display: flex;
-                margin: 0;
-                padding: 0;
-            }
-
-            .nav-links li a {
-                display: block;
-                color: white;
-                text-decoration: none;
-                padding: 14px 20px;
-                font-weight: bold;
-                font-size: 25px;
-            }
-
-            .nav-links li a:hover {
-                background-color: #000000;
-                color: #04aa6d;
-            }
-    </style>
-    <body>
-        <div class="photo-text">
-    <img src="IMG-20260917-WA0003.jpg" alt="NADFIlogo">
-   <h1 style="font-size: 250%;">NADFI</h1>
-
-</div>
-<style>
-.photo-text {
-    display: flex;
-    align-items: center;
-    gap: 0px;
-}
-
-.photo-text img {
-    width: 100px;
-    height: auto;
-}
-
-.photo-text p {
-    font-size: 15px;
-    margin: 0;
-}
-</style>
-<nav class="navbar">
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="goals.html">Goals</a></li>
-                <li><a href="decisions.html">Decisions</a></li>
-            </ul>
-            <ul class="nav-links">
-                <li><a href="account.html">Account</a></li>
-                <li><a href="fridaynews.html">Friday News</a></li>
-            </ul>
-        </nav>
-        <h1>Protecting Nature, Life and Building Hopes.</h1>
-        <p>This project allows people to spread awareness and commit their daily goals as a small step towards the care for the nature. This does not only contain caring for nature but to maintain peace and harmony among humans and nature leading to true self development of nations along withe attention to nature and wildlife. FOLLOWING ARE THE IDEAS TO PERFORM IT, TICK THE ONE YOU DO AND GET A STREAK...</p>
-        <ul class="goals-list" aria-label="Goals to complete">
-            <li class="goal-item"><label><input type="checkbox"><span>STEP 1: keep the surrounding nature in check.</span></label></li>
-            <li class="goal-item"><label><input type="checkbox"><span>STEP 2: spread awareness.</span></label></li>
-            <li class="goal-item"><label><input type="checkbox"><span>STEP 3: feed atleast one animal per day.</span></label></li>
-        </ul>
-        <div id="completion-message" class="badge-stack" hidden>
-            <span id="daily-badge" class="starter-badge" role="status"><img src="Screenshot 2026-08-20 084859.png" alt="NADFI badge picture"><span id="badge-label">STARTER1</span></span>
-            <span id="bronze-badge" class="starter-badge bronze-badge" role="status" hidden><img src="Screenshot 2026-08-20 084859.png" alt="NADFI bronze badge picture"><span id="bronze-label">BRONZE1</span></span>
-            <span id="silver-badge" class="starter-badge silver-badge" role="status" hidden><img src="Screenshot 2026-08-20 084859.png" alt="NADFI silver badge picture"><span id="silver-label">SILVER1</span></span>
-            <span id="gold-badge" class="starter-badge gold-badge" role="status" hidden><img src="Screenshot 2026-08-20 084859.png" alt="NADFI gold badge picture"><span>GOLD1</span></span>
-            <span id="congratulations" class="congratulations" role="status"></span>
-        </div>
-        <script>
-            const goalCheckboxes = document.querySelectorAll('.goals-list input[type="checkbox"]');
-            const completionMessage = document.getElementById('completion-message');
-            const badgeLabel = document.getElementById('badge-label');
-            const bronzeBadge = document.getElementById('bronze-badge');
-            const bronzeLabel = document.getElementById('bronze-label');
-            const silverBadge = document.getElementById('silver-badge');
-            const silverLabel = document.getElementById('silver-label');
-            const goldBadge = document.getElementById('gold-badge');
-            const congratulations = document.getElementById('congratulations');
-            const goalStorageKey = 'nadfi-goals';
-            const currentDate = new Date();
-            const today = currentDate.toLocaleDateString('en-CA');
-            const currentMonth = today.slice(0, 7);
-            const currentYear = String(currentDate.getFullYear());
-
-            function getProgress() {
-                try {
-                    return JSON.parse(localStorage.getItem(goalStorageKey) || 'null') || { completedDates: [] };
-                } catch (error) {
-                    return { completedDates: [] };
-                }
-            }
-
-            function saveTodaysGoals(progress) {
-                progress.date = today;
-                progress.checked = [...goalCheckboxes].map((checkbox) => checkbox.checked);
-                localStorage.setItem(goalStorageKey, JSON.stringify(progress));
-            }
-
-            function scheduleDailyReset() {
-                const nextDay = new Date(currentDate);
-                nextDay.setDate(nextDay.getDate() + 1);
-                nextDay.setHours(0, 0, 0, 0);
-                window.setTimeout(() => window.location.reload(), nextDay - currentDate);
-            }
-
-            function monthDifference(startMonth, endMonth) {
-                const [startYear, startNumber] = startMonth.split('-').map(Number);
-                const [endYear, endNumber] = endMonth.split('-').map(Number);
-                return (endYear - startYear) * 12 + endNumber - startNumber;
-            }
-
-            function isLastDayOfMonth() {
-                return new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1).getMonth() !== currentDate.getMonth();
-            }
-
-            function loadTodaysGoals() {
-                const progress = getProgress();
-                progress.completedDates = Array.isArray(progress.completedDates) ? progress.completedDates : [];
-
-                if (progress.date !== today) {
-                    goalCheckboxes.forEach((checkbox) => checkbox.checked = false);
-                    progress.checked = [...goalCheckboxes].map(() => false);
-                    saveTodaysGoals(progress);
-                    return;
-                }
-
-                goalCheckboxes.forEach((checkbox, index) => {
-                    checkbox.checked = progress.checked && progress.checked[index] === true;
-                });
-            }
-
-            function updateCompletionBadge() {
-                const allGoalsComplete = [...goalCheckboxes].every((checkbox) => checkbox.checked);
-                const progress = getProgress();
-                progress.completedDates = Array.isArray(progress.completedDates) ? progress.completedDates : [];
-                progress.bronzeWeeks = Array.isArray(progress.bronzeWeeks) ? progress.bronzeWeeks : [];
-                progress.silverMonths = Array.isArray(progress.silverMonths) ? progress.silverMonths : [];
-                progress.goldYears = Array.isArray(progress.goldYears) ? progress.goldYears : [];
-                const completedDays = progress.completedDates.length;
-                const startingMonth = progress.startingMonth || progress.completedDates[0]?.slice(0, 7);
-                const monthNumber = startingMonth ? monthDifference(startingMonth, currentMonth) : 0;
-                const hasSilverBadge = allGoalsComplete && progress.silverMonths.length > 0;
-                const hasGoldBadge = allGoalsComplete && progress.goldYears.length > 0;
-
-                completionMessage.hidden = !allGoalsComplete;
-                badgeLabel.textContent = `STARTER${completedDays}`;
-                bronzeBadge.hidden = progress.bronzeWeeks.length < 1;
-                bronzeLabel.textContent = `BRONZE${progress.bronzeWeeks.length}`;
-                silverBadge.hidden = !hasSilverBadge;
-                silverLabel.textContent = `SILVER${progress.silverMonths.length}`;
-                goldBadge.hidden = !hasGoldBadge;
-                congratulations.textContent = allGoalsComplete ? (progress.congratulations || '') : '';
-            }
-
-            goalCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', () => {
-                const progress = getProgress();
-                progress.completedDates = Array.isArray(progress.completedDates) ? progress.completedDates : [];
-                progress.bronzeWeeks = Array.isArray(progress.bronzeWeeks) ? progress.bronzeWeeks : [];
-                progress.silverMonths = Array.isArray(progress.silverMonths) ? progress.silverMonths : [];
-                progress.goldYears = Array.isArray(progress.goldYears) ? progress.goldYears : [];
-                saveTodaysGoals(progress);
-
-                if ([...goalCheckboxes].every((goal) => goal.checked) && !progress.completedDates.includes(today)) {
-                    progress.completedDates.push(today);
-                    progress.startingMonth = progress.startingMonth || currentMonth;
-                    const completedDays = progress.completedDates.length;
-                    const newBadges = [`STARTER${completedDays}`];
-
-                    if (currentDate.getDay() === 0 && !progress.bronzeWeeks.includes(today)) {
-                        progress.bronzeWeeks.push(today);
-                        newBadges.push(`BRONZE${progress.bronzeWeeks.length}`);
-                    }
-                    const monthNumber = monthDifference(progress.startingMonth, currentMonth);
-
-                    if (isLastDayOfMonth() && monthNumber > 0 && !progress.silverMonths.includes(currentMonth)) {
-                        progress.silverMonths.push(currentMonth);
-                        newBadges.push(`SILVER${progress.silverMonths.length}`);
-                    }
-                    if (currentDate.getMonth() === 11 && currentDate.getDate() === 31 && !progress.goldYears.includes(currentYear)) {
-                        progress.goldYears.push(currentYear);
-                        newBadges.push(`GOLD${progress.goldYears.length}`);
-                    }
-                    progress.congratulations = `Congratulations! You earned ${newBadges.join(' and ')}.`;
-                    saveTodaysGoals(progress);
-                }
-                updateCompletionBadge();
-            }));
-
-            loadTodaysGoals();
-            updateCompletionBadge();
-            scheduleDailyReset();
-        </script>
-    </body>
-    </html>
+    loadTodaysGoals();
+    updateCompletionBadge();
+    scheduleDailyReset();
+  </script>
+</body>
+</html>
