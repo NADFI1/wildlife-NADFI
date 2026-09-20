@@ -4,7 +4,7 @@
 * {
   box-sizing: border-box;
   /* Applies Comic Sans to ALL text elements across the entire website */
-  font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif !important;
+  font-family: "Comic Sans MS", "Comic Sans" !important;
 }
 
 body {
