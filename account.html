@@ -1,387 +1,224 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>NADFI</title>
-        <link rel="stylesheet" href="style.html">
-    </head>
-    <style>
-        body {
-            margin: 30px;
-            background-color: antiquewhite;
-            background-image: url('https://i.pinimg.com/736x/92/d8/87/92d887766136c5b82ccc311c4ae53ffd.jpg');
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center;
-        }
-        @media (max-width: 600px) {
-            body {
-                background-position: center center;
-                background-size: cover;
-            }
-        }
-        h1 {
-            color:rgb(6, 6, 87);
-            font-family: lionel system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        }
-        p {
-            color:black;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: larger;
-        }
-        .photo-text {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-        .account-options {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 900px;
-            margin: 28px 0;
-        }
-        .account-card {
-            padding: 24px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-top: 6px solid #04aa6d;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-        .account-card h2 {
-            margin-top: 0;
-            color: rgb(6, 6, 87);
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        .account-form {
-            display: grid;
-            gap: 14px;
-        }
-        .account-form label {
-            display: grid;
-            gap: 6px;
-            color: #111;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-        }
-        .account-form input {
-            box-sizing: border-box;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #777;
-            font-size: 16px;
-        }
-        .account-form button {
-            padding: 11px;
-            border: 0;
-            background-color: #04aa6d;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .account-form button:hover {
-            background-color: #037b50;
-        }
-        .form-status {
-            min-height: 20px;
-            margin: 0;
-            color: #037b50;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-        }
-        .account-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 20px 0;
-        }
-        #logout-button {
-            padding: 11px 18px;
-            border: 0;
-            background-color: #b3261e;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        #logout-button:hover {
-            background-color: #7f1d1a;
-        }
-        .logout-status {
-            margin: 0;
-            color: #037b50;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-        }
-        .achievements {
-            max-width: 900px;
-            margin: 28px 0;
-            padding: 24px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-top: 6px solid #a97142;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-        .achievements h2 {
-            margin-top: 0;
-            color: rgb(6, 6, 87);
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        .achievement-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .achievement-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background-color: #04aa6d;
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-        }
-        .achievement-badge img {
-            width: 36px;
-            height: 36px;
-            object-fit: cover;
-        }
-        .achievement-badge.bronze {
-            background-color: #a97142;
-        }
-        .achievement-badge.silver {
-            background-color: #c0c7d1;
-            color: #1d2733;
-        }
-        .achievement-badge.gold {
-            background-color: #d4a017;
-            color: #241b00;
-        }
-        .no-achievements {
-            margin: 0;
-            color: #555;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        @media (max-width: 700px) {
-            .account-options {
-                grid-template-columns: 1fr;
-                margin-right: 16px;
-            }
-        }
-        .navbar {
-            background-color: #282a35;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0 20px;
-            }
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NADFI - Account</title>
 
-            .nav-links {
-                list-style: none;
-                display: flex;
-                margin: 0;
-                padding: 0;
-            }
+  <!-- Google Search Console verification meta tag -->
+  <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" />
 
-            .nav-links li a {
-                display: block;
-                color: white;
-                text-decoration: none;
-                padding: 14px 20px;
-                font-weight: bold;
-                font-size: 25px;
-            }
+  <!-- Favicon / Logo -->
+  <link rel="icon" type="image/png" href="Logo.png">
 
-            .nav-links li a:hover {
-                background-color: #000000;
-                color: #04aa6d;
-            }
-    </style>
-    <body>
-        <div class="photo-text">
-    <img src="IMG-20260917-WA0003.jpg" alt="Photo">
-   <h1 style="font-size: 250%;">NADFI</h1>
+  <!-- Link to central style.css stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-</div>
-<style>
-.photo-text {
-    display: flex;
-    align-items: center;
-    gap: 0px;
-}
+  <!-- Hidden Control Checkbox for Mobile Drawer Toggle -->
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
 
-.photo-text img {
-    width: 100px;
-    height: auto;
-}
+  <!-- Mobile Sticky Header Bar -->
+  <div class="mobile-header">
+    <label for="nav-toggle" class="hamburger-btn">&#9776;</label>
+    <a href="index.html">
+      <img src="Logo.png" alt="NADFI Logo" class="site-logo">
+    </a>
+  </div>
 
-.photo-text p {
-    font-size: 15px;
-    margin: 0;
-}
-</style>
-<nav class="navbar">
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="goals.html">Goals</a></li>
-                <li><a href="decisions.html">Decisions</a></li>
-                
-            </ul>
-            <ul class="nav-links">
-                <li><a href="account.html">Account</a></li>
-            <li><a href="fridaynews.html">Friday News</a></li>
-        </ul>
-        </nav>
-        <h1>Protecting Nature, Life and Building Hopes.</h1>
-        <p>Choose an account provider and enter your details.</p>
-        <div class="account-actions">
-            <button id="logout-button" type="button">Log out</button>
-            <p class="logout-status" aria-live="polite"></p>
-        </div>
-        <main class="account-options">
-            <section class="account-card">
-                <h2>Google</h2>
-                <form class="account-form" action="#" method="post">
-                    <label for="google-email">Email ID
-                        <input id="google-email" name="email" type="email" autocomplete="email" required>
-                    </label>
-                    <label for="google-password">Password
-                        <input id="google-password" name="password" type="password" autocomplete="current-password" required>
-                    </label>
-                    <label for="google-display-name">Display name
-                        <input id="google-display-name" name="displayName" type="text" autocomplete="name" required>
-                    </label>
-                    <button type="submit">Continue with Google</button>
-                    <p class="form-status" aria-live="polite"></p>
-                </form>
-            </section>
-            <section class="account-card">
-                <h2>Microsoft</h2>
-                <form class="account-form" action="#" method="post">
-                    <label for="microsoft-email">Email ID
-                        <input id="microsoft-email" name="email" type="email" autocomplete="email" required>
-                    </label>
-                    <label for="microsoft-password">Password
-                        <input id="microsoft-password" name="password" type="password" autocomplete="current-password" required>
-                    </label>
-                    <label for="microsoft-display-name">Display name
-                        <input id="microsoft-display-name" name="displayName" type="text" autocomplete="name" required>
-                    </label>
-                    <button type="submit">Continue with Microsoft</button>
-                    <p class="form-status" aria-live="polite"></p>
-                </form>
-            </section>
-        </main>
-        <section class="achievements" aria-labelledby="achievements-title">
-            <h2 id="achievements-title">Achievements</h2>
-            <div id="achievement-list" class="achievement-list"></div>
-            <p id="no-achievements" class="no-achievements">Complete goals to earn badges.</p>
-        </section>
-        <script>
-            const accountStorageKey = 'nadfi-accounts';
-            const accountForms = document.querySelectorAll('.account-form');
-            const logoutButton = document.getElementById('logout-button');
-            const logoutStatus = document.querySelector('.logout-status');
-            const goalStorageKey = 'nadfi-goals';
-            const achievementList = document.getElementById('achievement-list');
-            const noAchievements = document.getElementById('no-achievements');
+  <!-- Mobile Slide-Out Side Drawer Menu -->
+  <div class="side-nav">
+    <label for="nav-toggle" class="close-btn">&times;</label>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="account.html">Account</a>
+    <a href="decisions.html">Decisions</a>
+    <a href="fridaynews.html">Friday News</a>
+    <a href="goals.html">Goals</a>
+    <a href="project1.html">Project 1</a>
+  </div>
 
-            function loadAccounts() {
-                const savedAccounts = JSON.parse(localStorage.getItem(accountStorageKey) || '{}');
+  <!-- Mobile Background Overlay for Menu -->
+  <label for="nav-toggle" class="sidebar-overlay"></label>
 
-                accountForms.forEach((form) => {
-                    const account = savedAccounts[form.closest('.account-card').querySelector('h2').textContent.toLowerCase()];
+  <!-- Desktop Top Navigation Bar -->
+  <nav class="desktop-nav">
+    <a href="index.html">
+      <img src="Logo.png" alt="NADFI Logo" class="site-logo">
+    </a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="account.html">Account</a>
+    <a href="decisions.html">Decisions</a>
+    <a href="fridaynews.html">Friday News</a>
+    <a href="goals.html">Goals</a>
+    <a href="project1.html">Project 1</a>
+  </nav>
 
-                    if (!account) {
-                        return;
-                    }
+  <!-- Main Account Content -->
+  <div class="content">
+    <div class="photo-text">
+      <img src="IMG-20260917-WA0003.jpg" alt="NADFI Photo" style="width: 100px; height: auto;">
+      <h1 style="font-size: 250%;">NADFI</h1>
+    </div>
 
-                    form.elements.email.value = account.email || '';
-                    form.elements.password.value = account.password || '';
-                    form.elements.displayName.value = account.displayName || '';
-                });
-            }
+    <h1>Protecting Nature, Life and Building Hopes.</h1>
+    <p>Choose an account provider and enter your details.</p>
 
-            accountForms.forEach((form) => form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const provider = form.closest('.account-card').querySelector('h2').textContent.toLowerCase();
-                const savedAccounts = JSON.parse(localStorage.getItem(accountStorageKey) || '{}');
+    <div class="account-actions">
+      <button id="logout-button" type="button">Log out</button>
+      <p class="logout-status" aria-live="polite"></p>
+    </div>
 
-                savedAccounts[provider] = {
-                    email: form.elements.email.value,
-                    password: form.elements.password.value,
-                    displayName: form.elements.displayName.value
-                };
-                localStorage.setItem(accountStorageKey, JSON.stringify(savedAccounts));
-                form.querySelector('.form-status').textContent = 'Saved';
-            }));
+    <main class="account-options">
+      <section class="account-card">
+        <h2>Google</h2>
+        <form class="account-form" action="#" method="post">
+          <label for="google-email">Email ID
+            <input id="google-email" name="email" type="email" autocomplete="email" required>
+          </label>
+          <label for="google-password">Password
+            <input id="google-password" name="password" type="password" autocomplete="current-password" required>
+          </label>
+          <label for="google-display-name">Display name
+            <input id="google-display-name" name="displayName" type="text" autocomplete="name" required>
+          </label>
+          <button type="submit">Continue with Google</button>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </section>
 
-            logoutButton.addEventListener('click', () => {
-                localStorage.removeItem(accountStorageKey);
-                accountForms.forEach((form) => {
-                    form.reset();
-                    form.querySelector('.form-status').textContent = '';
-                });
-                logoutStatus.textContent = 'Logged out';
-            });
+      <section class="account-card">
+        <h2>Microsoft</h2>
+        <form class="account-form" action="#" method="post">
+          <label for="microsoft-email">Email ID
+            <input id="microsoft-email" name="email" type="email" autocomplete="email" required>
+          </label>
+          <label for="microsoft-password">Password
+            <input id="microsoft-password" name="password" type="password" autocomplete="current-password" required>
+          </label>
+          <label for="microsoft-display-name">Display name
+            <input id="microsoft-display-name" name="displayName" type="text" autocomplete="name" required>
+          </label>
+          <button type="submit">Continue with Microsoft</button>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
 
-            function monthDifference(startMonth, endMonth) {
-                const [startYear, startNumber] = startMonth.split('-').map(Number);
-                const [endYear, endNumber] = endMonth.split('-').map(Number);
-                return (endYear - startYear) * 12 + endNumber - startNumber;
-            }
+    <section class="achievements" aria-labelledby="achievements-title">
+      <h2 id="achievements-title">Achievements</h2>
+      <div id="achievement-list" class="achievement-list"></div>
+      <p id="no-achievements" class="no-achievements">Complete goals to earn badges.</p>
+    </section>
+  </div>
 
-            function addAchievement(label, type) {
-                const badge = document.createElement('span');
-                badge.className = `achievement-badge ${type}`;
-                badge.innerHTML = `<img src="Screenshot 2026-08-20 084859.png" alt="${label} badge picture"><span>${label}</span>`;
-                achievementList.appendChild(badge);
-            }
+  <!-- JavaScript functionality for LocalStorage & Achievements -->
+  <script>
+    const accountStorageKey = 'nadfi-accounts';
+    const accountForms = document.querySelectorAll('.account-form');
+    const logoutButton = document.getElementById('logout-button');
+    const logoutStatus = document.querySelector('.logout-status');
+    const goalStorageKey = 'nadfi-goals';
+    const achievementList = document.getElementById('achievement-list');
+    const noAchievements = document.getElementById('no-achievements');
 
-            function loadAchievements() {
-                let progress;
+    function loadAccounts() {
+      const savedAccounts = JSON.parse(localStorage.getItem(accountStorageKey) || '{}');
 
-                try {
-                    progress = JSON.parse(localStorage.getItem(goalStorageKey) || 'null') || {};
-                } catch (error) {
-                    progress = {};
-                }
+      accountForms.forEach((form) => {
+        const account = savedAccounts[form.closest('.account-card').querySelector('h2').textContent.toLowerCase()];
 
-                const completedDays = Array.isArray(progress.completedDates) ? progress.completedDates.length : 0;
-                const startingMonth = progress.startingMonth || progress.completedDates?.[0]?.slice(0, 7);
-                const currentMonth = new Date().toLocaleDateString('en-CA').slice(0, 7);
+        if (!account) {
+          return;
+        }
 
-                for (let day = 1; day <= completedDays; day++) {
-                    addAchievement(`STARTER${day}`, 'starter');
-                }
-                if (Array.isArray(progress.bronzeWeeks)) {
-                    progress.bronzeWeeks.forEach((week, index) => {
-                        addAchievement(`BRONZE${index + 1}`, 'bronze');
-                    });
-                }
-                if (startingMonth && Array.isArray(progress.silverMonths)) {
-                    progress.silverMonths.forEach((month, index) => {
-                        const monthNumber = monthDifference(startingMonth, month);
+        form.elements.email.value = account.email || '';
+        form.elements.password.value = account.password || '';
+        form.elements.displayName.value = account.displayName || '';
+      });
+    }
 
-                        if (monthNumber > 0 && month <= currentMonth) {
-                            addAchievement(`SILVER${index + 1}`, 'silver');
-                        }
-                    });
-                }
-                if (Array.isArray(progress.goldYears)) {
-                    progress.goldYears.forEach((year, index) => {
-                        if (String(year) <= currentMonth.slice(0, 4)) {
-                            addAchievement(`GOLD${index + 1}`, 'gold');
-                        }
-                    });
-                }
+    accountForms.forEach((form) => form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const provider = form.closest('.account-card').querySelector('h2').textContent.toLowerCase();
+      const savedAccounts = JSON.parse(localStorage.getItem(accountStorageKey) || '{}');
 
-                noAchievements.hidden = achievementList.children.length > 0;
-            }
+      savedAccounts[provider] = {
+        email: form.elements.email.value,
+        password: form.elements.password.value,
+        displayName: form.elements.displayName.value
+      };
+      localStorage.setItem(accountStorageKey, JSON.stringify(savedAccounts));
+      form.querySelector('.form-status').textContent = 'Saved';
+    }));
 
-            loadAccounts();
-            loadAchievements();
-        </script>
-    </body>
+    logoutButton.addEventListener('click', () => {
+      localStorage.removeItem(accountStorageKey);
+      accountForms.forEach((form) => {
+        form.reset();
+        form.querySelector('.form-status').textContent = '';
+      });
+      logoutStatus.textContent = 'Logged out';
+    });
+
+    function monthDifference(startMonth, endMonth) {
+      const [startYear, startNumber] = startMonth.split('-').map(Number);
+      const [endYear, endNumber] = endMonth.split('-').map(Number);
+      return (endYear - startYear) * 12 + endNumber - startNumber;
+    }
+
+    function addAchievement(label, type) {
+      const badge = document.createElement('span');
+      badge.className = `achievement-badge ${type}`;
+      badge.innerHTML = `<img src="Screenshot 2026-08-20 084859.png" alt="${label} badge picture"><span>${label}</span>`;
+      achievementList.appendChild(badge);
+    }
+
+    function loadAchievements() {
+      let progress;
+
+      try {
+        progress = JSON.parse(localStorage.getItem(goalStorageKey) || 'null') || {};
+      } catch (error) {
+        progress = {};
+      }
+
+      const completedDays = Array.isArray(progress.completedDates) ? progress.completedDates.length : 0;
+      const startingMonth = progress.startingMonth || progress.completedDates?.[0]?.slice(0, 7);
+      const currentMonth = new Date().toLocaleDateString('en-CA').slice(0, 7);
+
+      for (let day = 1; day <= completedDays; day++) {
+        addAchievement(`STARTER${day}`, 'starter');
+      }
+      if (Array.isArray(progress.bronzeWeeks)) {
+        progress.bronzeWeeks.forEach((week, index) => {
+          addAchievement(`BRONZE${index + 1}`, 'bronze');
+        });
+      }
+      if (startingMonth && Array.isArray(progress.silverMonths)) {
+        progress.silverMonths.forEach((month, index) => {
+          const monthNumber = monthDifference(startingMonth, month);
+
+          if (monthNumber > 0 && month <= currentMonth) {
+            addAchievement(`SILVER${index + 1}`, 'silver');
+          }
+        });
+      }
+      if (Array.isArray(progress.goldYears)) {
+        progress.goldYears.forEach((year, index) => {
+          if (String(year) <= currentMonth.slice(0, 4)) {
+            addAchievement(`GOLD${index + 1}`, 'gold');
+          }
+        });
+      }
+
+      noAchievements.hidden = achievementList.children.length > 0;
+    }
+
+    loadAccounts();
+    loadAchievements();
+  </script>
+</body>
     </html>
