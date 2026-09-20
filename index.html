@@ -10,45 +10,159 @@
   <link rel="stylesheet" href="style.html">
     </head>
     <style>
-        body {
+        * {
       margin: 0;
       padding: 0;
-      /* Background Image shown after video ends */
-      background-image: url('your-image.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      box-sizing: border-box;
     }
-    
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Navigation Bar Layout */
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #2e4d25;
+      font-weight: bold;
+    }
+
+    .site-logo {
+      height: 40px;
+      width: auto;
+      vertical-align: middle;
+      border-radius: 5px;
+    }
+
+    /* Fullscreen Video Container */
+    .video-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Background Video Styling */
     #bg-video {
-      position: fixed;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+
+    /* Dark Overlay for Readability */
+    .overlay {
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      transition: opacity 0.5s ease; /* Smooth fade-out effect */
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 2;
+    }
+
+    /* Hero Text & Content */
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      color: #ffffff;
+      padding: 0 20px;
+      max-width: 800px;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .hero-content p {
+      font-size: 1.25rem;
+      margin-bottom: 25px;
+    }
+
+    /* Button Styling */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: #2e4d25;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 25px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #3e6832;
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Responsive Scaling */
+    @media screen and (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
     }
     </style>
-        <body>
-            <video id="bg-video" autoplay muted playsinline>
-    <source src="your-video.mp4" type="video/mp4">
-  </video>
+    <nav>
+    <a href="index.html">
+      <img src="Logo.png" alt="NADFI Logo" class="site-logo">
+    </a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="account.html">Account</a>
+    <a href="decisions.html">Decisions</a>
+    <a href="fridaynews.html">Friday News</a>
+    <a href="goals.html">Goals</a>
+    <a href="project1.html">Project 1</a>
+  </nav>
 
-  <script>
-    const video = document.getElementById('bg-video');
+  <!-- Video Background Wrapper -->
+  <div class="video-container">
+    <video autoplay muted loop playsinline id="bg-video">
+      <source src="lv_0_20260920090415.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    
+    <div class="overlay"></div>
 
-    // Hide video when it finishes playing
-    video.addEventListener('ended', function() {
-      video.style.opacity = '0'; // Fade out
-      setTimeout(() => {
-        video.style.display = 'none'; // Remove completely to reveal image
-      }, 500); // Matches transition duration
-    });
-  </script>
+    <div class="hero-content">
      <h1>Nature and Animal Development Federation Initiatives</h1>
+        <a href="https://www.example.com" target="_blank" rel="noopener noreferrer" class="btn">Visit External Site</a>
+    </div>
+  </div>
         <p>Environmental awareness serves as a powerful catalyst for both ecological conservation and human peace. When individuals and communities recognize their deep interconnection with the natural world, protecting ecosystems transforms from a regulatory requirement into a shared moral commitment. Educating people about resource stewardship helps alleviate the competition over land, water, and vital resources that so often fuels social tension and conflict. By fostering empathy, environmental education, and collaborative conservation, society builds a culture of mutual respect—demonstrating that living in harmony with nature is fundamentally linked to living in peace with one another.</p>
     <h1 style="font-family:Comic Sans MS;"> A Small Step, A Big Difference...</h1>
         <h3> Nature and Animal Development Federation Industries (NADFI)</h3>
