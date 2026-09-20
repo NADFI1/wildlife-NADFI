@@ -325,3 +325,95 @@ body {
     grid-template-columns: 1fr;
     margin-right: 16px;
   }
+      
+/* ==========================================
+   GOALS PAGE STYLES (goals.html)
+   ========================================== */
+.goals-list {
+  max-width: 850px;
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.goal-item {
+  margin: 12px 0;
+}
+
+.goal-item label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background-color: rgba(255, 255, 255, 0.82);
+  border-left: 5px solid #04aa6d;
+  color: #111;
+  font-size: large;
+  cursor: pointer;
+}
+
+.goal-item input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  accent-color: #04aa6d;
+}
+
+.goal-item input:checked + span {
+  color: #555;
+  text-decoration: line-through;
+}
+
+.starter-badge {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 150px;
+  padding: 10px 14px;
+  background-color: #04aa6d;
+  color: white;
+  border: 3px solid white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  font-size: large;
+  font-weight: bold;
+}
+
+.starter-badge img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.bronze-badge {
+  background-color: #a97142;
+}
+
+.silver-badge {
+  background-color: #c0c7d1;
+  color: #1d2733;
+}
+
+.gold-badge {
+  background-color: #d4a017;
+  color: #241b00;
+}
+
+.badge-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.congratulations {
+  color: #037b50;
+  font-weight: bold;
+}
+      
