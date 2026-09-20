@@ -10,7 +10,44 @@
   <link rel="stylesheet" href="style.html">
     </head>
     <style>
+        body {
+      margin: 0;
+      padding: 0;
+      /* Background Image shown after video ends */
+      background-image: url('your-image.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      transition: opacity 0.5s ease; /* Smooth fade-out effect */
+    }
+    </style>
         <body>
+            <video id="bg-video" autoplay muted playsinline>
+    <source src="your-video.mp4" type="video/mp4">
+  </video>
+
+  <script>
+    const video = document.getElementById('bg-video');
+
+    // Hide video when it finishes playing
+    video.addEventListener('ended', function() {
+      video.style.opacity = '0'; // Fade out
+      setTimeout(() => {
+        video.style.display = 'none'; // Remove completely to reveal image
+      }, 500); // Matches transition duration
+    });
+  </script>
      <h1>Nature and Animal Development Federation Initiatives</h1>
         <p>Environmental awareness serves as a powerful catalyst for both ecological conservation and human peace. When individuals and communities recognize their deep interconnection with the natural world, protecting ecosystems transforms from a regulatory requirement into a shared moral commitment. Educating people about resource stewardship helps alleviate the competition over land, water, and vital resources that so often fuels social tension and conflict. By fostering empathy, environmental education, and collaborative conservation, society builds a culture of mutual respect—demonstrating that living in harmony with nature is fundamentally linked to living in peace with one another.</p>
     <h1 style="font-family:Comic Sans MS;"> A Small Step, A Big Difference...</h1>
