@@ -10,8 +10,8 @@
 body {
   margin: 0;
   padding: 0;
-  color: #333333;
-  background-color: #ffffff; /* Standard desktop background */
+  color: #ffffff;
+  background-color: #000000; /* Standard desktop background */
   font-size: 16px;
   line-height: 1.5;
 }
@@ -80,7 +80,7 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: #f2f5ed;
+    background-color: #000000;
     font-size: 17px;
   }
 
