@@ -178,4 +178,150 @@ body {
     visibility: visible;
   }
 }
-     
+/* ==========================================
+   ACCOUNT PAGE STYLES (account.html)
+   ========================================== */
+.photo-text {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.account-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 900px;
+  margin: 28px 0;
+}
+
+.account-card {
+  padding: 24px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-top: 6px solid #04aa6d;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.account-card h2 {
+  margin-top: 0;
+  color: rgb(6, 6, 87);
+}
+
+.account-form {
+  display: grid;
+  gap: 14px;
+}
+
+.account-form label {
+  display: grid;
+  gap: 6px;
+  color: #111;
+  font-weight: bold;
+}
+
+.account-form input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #777;
+  font-size: 16px;
+}
+
+.account-form button {
+  padding: 11px;
+  border: 0;
+  background-color: #04aa6d;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.account-form button:hover {
+  background-color: #037b50;
+}
+
+.form-status {
+  min-height: 20px;
+  margin: 0;
+  color: #037b50;
+  font-weight: bold;
+}
+
+.account-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+#logout-button {
+  padding: 11px 18px;
+  border: 0;
+  background-color: #b3261e;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#logout-button:hover {
+  background-color: #7f1d1a;
+}
+
+.logout-status {
+  margin: 0;
+  color: #037b50;
+  font-weight: bold;
+}
+
+.achievements {
+  max-width: 900px;
+  margin: 28px 0;
+  padding: 24px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-top: 6px solid #a97142;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.achievements h2 {
+  margin-top: 0;
+  color: rgb(6, 6, 87);
+}
+
+.achievement-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.achievement-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #04aa6d;
+  color: white;
+  font-weight: bold;
+}
+
+.achievement-badge img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+}
+
+.achievement-badge.bronze { background-color: #a97142; }
+.achievement-badge.silver { background-color: #c0c7d1; color: #1d2733; }
+.achievement-badge.gold { background-color: #d4a017; color: #241b00; }
+
+.no-achievements {
+  margin: 0;
+  color: #555;
+}
+
+@media (max-width: 700px) {
+  .account-options {
+    grid-template-columns: 1fr;
+    margin-right: 16px;
+  }
