@@ -1,40 +1,72 @@
-<DOCTYPEhtml>
-  <html>
-    <head>
-      <title>NADFI|Latest Articles</title>
-    <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="photo-text">
-    <img src="IMG-20260917-WA0003.jpg" alt="Photo">
-   <h1 style="font-size: 250%;">NADFI</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NADFI - About Us</title>
 
-</div>
-<nav class="navbar">
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="goals.html">Goals</a></li>
-                <li><a href="decisions.html">Decisions</a></li>
-            </ul>
-            <ul class="nav-links">
-                <li><a href="account.html">Account</a></li>
-                <li><a href="fridaynews.html">Friday News</a></li>
-            </ul>
-        </nav>
-        <h1>Protecting Nature, Life and Building Hopes.</h1>
-        <p>The newly identified wild cat species is the tilcayo (Leopardus tilcayo), announced in September 2026 as the first new living cat species formally described in over a century. [1]
+  <meta name="google-site-verification" content="3MzwCMmGiZSS0C-WJIWHXD79BrM9cNpIm0ShlMTTHw8" />
+  <link rel="icon" type="image/png" href="IMG-20260917-WA0003.jpg">
 
-Key Facts About the Tilcayo
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-Location: Native to Bolivia’s mountainous, cloud-covered Yungas forest ecoregion. [1, 2]
+  <!-- Hidden Control Checkbox for Mobile Drawer Toggle -->
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
 
-Size: Extremely tiny, measuring about 18 inches long and weighing roughly 3 pounds (1.4 kg)—making it smaller than a typical house cat. [1, 2]
+  <!-- Mobile Sticky Header Bar -->
+  <div class="mobile-header">
+    <a href="index.html">
+      <img src="IMG-20260917-WA0003.jpg" alt="NADFI Logo" class="site-logo" style="height:40px; width:auto;">
+    </a>
+    <label for="nav-toggle" class="hamburger-btn">&#9776;</label>
+  </div>
 
-Appearance: Features a light brown coat patterned with dark, irregularly shaped leopard-like rosettes. [1, 2]
+  <!-- Mobile Slide-Out Side Drawer Menu -->
+  <div class="side-nav">
+    <label for="nav-toggle" class="close-btn">&times;</label>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="account.html">Account</a>
+    <a href="decisions.html">Decisions</a>
+    <a href="fridaynews.html">Friday News</a>
+    <a href="goals.html">Goals</a>
+    <a href="project1.html">Project 1</a>
+  </div>
 
-Classification: Belongs to the South American tiger cat group, which genetic studies recently expanded into a complex of distinct species. [1, 2]
+  <!-- Mobile Background Overlay for Menu -->
+  <label for="nav-toggle" class="sidebar-overlay"></label>
 
-Conservation Status: Research was led by National Geographic Explorer Paola Nogales-Ascarrunz. The only known living individual currently resides in protective care at the Senda Verde Wildlife Sanctuary in Bolivia after being rescued from a home where it was briefly kept as a pet. [1, 2, 3]</p>
-    </body>
-  </html>
+  <!-- Desktop Top Navigation Bar -->
+  <nav class="desktop-nav">
+    <a href="index.html">
+      <img src="IMG-20260917-WA0003.jpg" alt="NADFI Logo" class="site-logo" style="height:40px; width:auto;">
+    </a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="account.html">Account</a>
+    <a href="decisions.html">Decisions</a>
+    <a href="fridaynews.html">Friday News</a>
+    <a href="goals.html">Goals</a>
+   
+  </nav>
+
+  <!-- Main About Content -->
+  <div class="content" style="padding: 20px; max-width: 800px; margin: 0 auto;">
+    <div class="photo-text" style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+      <img src="IMG-20260917-WA0003.jpg" alt="NADFI Logo" style="width: 80px; height: auto; border-radius: 8px;">
+      <h1 style="font-size: 250%; margin: 0; color: rgb(6, 6, 87);">NADFI</h1>
+    </div>
+
+    <h1>Protecting Nature, Life and Building Hopes.</h1>
+    <p>The newly identified wild cat species is the tilcayo (Leopardus tilcayo), announced in September 2026 as the first new living cat species formally described in over a century.</p>
+      <p>[1] Key Facts About the Tilcayo Location: </p>
+    <p>Native to Bolivia’s mountainous, cloud-covered Yungas forest ecoregion.</p>
+    <p>[1, 2] Size: Extremely tiny, measuring about 18 inches long and weighing roughly 3 pounds (1.4 kg)—making it smaller than a typical house cat.</p>
+      <p>[1, 2] Appearance: Features a light brown coat patterned with dark, irregularly shaped leopard-like rosettes. [1, 2] Classification: Belongs to the South American tiger cat group, which genetic studies recently expanded into a complex of distinct species. </p>
+    <p>[1, 2] Conservation Status: Research was led by National Geographic Explorer Paola Nogales-Ascarrunz. The only known living individual currently resides in protective care at the Senda Verde Wildlife Sanctuary in Bolivia after being rescued from a home where it was briefly kept as a pet. [1, 2, 3]</p>
+
+</body>
+</html>
