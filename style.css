@@ -10,8 +10,8 @@
 body {
   margin: 0;
   padding: 0;
-  color: #000000;
-  background-color: #ffffff; /* Standard desktop background */
+  color: #ffffff;
+  background-color: #0d1c06; /* Standard desktop background */
   font-size: 16px;
   line-height: 1.5;
 }
